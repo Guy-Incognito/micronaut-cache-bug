@@ -13,7 +13,7 @@
   </parent>
 
   <properties>
-    <jdk.version>1.8</jdk.version>
+    <jdk.version>11</jdk.version>
     <!-- If you are building with JDK 9 or higher, you can uncomment the lines below to set the release version -->
     <!-- <release.version>8</release.version> -->
     <micronaut.version>2.1.1</micronaut.version>
@@ -132,6 +132,7 @@
             <arg>-Amicronaut.processing.group=at.guyincognito.test</arg>
             <arg>-Amicronaut.processing.module=cache-error</arg>
           </compilerArgs>
+          <release>${jdk.version}</release>
         </configuration>
         <executions>
           <execution>
