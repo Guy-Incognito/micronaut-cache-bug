@@ -1,0 +1,8 @@
+micronaut:
+  application:
+    name: cacheError
+  caches:
+    files:
+      maximumSize: 50
+    files2:
+      maximumSize: 50
