@@ -6,3 +6,5 @@ micronaut:
       maximumSize: 50
     files2:
       maximumSize: 50
+    files3:
+      maximumSize: 50

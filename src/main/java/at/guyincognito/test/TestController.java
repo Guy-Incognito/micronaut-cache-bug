@@ -13,7 +13,22 @@ public class TestController {
     private static final byte[] value = "Tralalalalalala".getBytes();
 
     public static final String PATH_FAILS = "/test";
+    public static final String PATH_FAILS_SYNC = "/testsync";
     public static final String PATH_WORKS = "/test2";
+
+
+    /**
+     * Returns test value wrapped in HttpResponse.
+     * This call will fail on refresh (i.e second call)
+     *
+     * @return the test value.
+     */
+    @Cacheable("files3")
+    @Get(value = PATH_FAILS_SYNC, produces = "application/octet-stream")
+    public HttpResponse<byte[]> getFilesSync() {
+        return HttpResponse.ok(value);
+    }
+
 
     /**
      * Returns test value wrapped in HttpResponse.

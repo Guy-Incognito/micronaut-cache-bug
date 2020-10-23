@@ -10,8 +10,7 @@ import javax.inject.Inject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static at.guyincognito.test.TestController.PATH_FAILS;
-import static at.guyincognito.test.TestController.PATH_WORKS;
+import static at.guyincognito.test.TestController.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @MicronautTest
@@ -50,6 +49,34 @@ class TestControllerTest {
                 );
         assertEquals(result, result2);
     }
+
+
+    /**
+     * This test calls the method returning HttpResponse<byte[]> .
+     * Fails!
+     *
+     * @throws MalformedURLException
+     */
+    @Test
+    void getFilesSyncFails() throws MalformedURLException {
+        var client = HttpClient.create(getServerUrl());
+        String result = client.toBlocking()
+                .retrieve(
+                        HttpRequest.GET(PATH_FAILS_SYNC),
+                        String.class
+                );
+
+        // second call fails:
+        // ERROR i.m.h.s.netty.RoutingInBoundHandler - Error writing final response: io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1
+        // io.netty.handler.codec.EncoderException: io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1
+        String result2 = client.toBlocking()
+                .retrieve(
+                        HttpRequest.GET(PATH_FAILS_SYNC),
+                        String.class
+                );
+        assertEquals(result, result2);
+    }
+
 
     /**
      * This test calls the method returning Single<byte[]> .
